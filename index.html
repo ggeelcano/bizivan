@@ -220,6 +220,7 @@ a{color:inherit;text-decoration:none}
 .ruta h4{font-size:1.15rem;font-weight:800;margin-bottom:8px}
 .ruta p{font-size:.92rem;color:var(--ink-soft);flex:1}
 .ruta .km{margin-top:14px;font-family:'Outfit';font-weight:700;font-size:.84rem;color:var(--orange-d)}
+.ruta .more{margin-top:10px;font-family:'Outfit';font-weight:700;font-size:.9rem;color:var(--orange);text-decoration:underline;text-underline-offset:3px}
 
 /* Condiciones */
 .cond-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
@@ -286,6 +287,7 @@ a{color:inherit;text-decoration:none}
 .field input,.field select,.field textarea{width:100%;padding:13px 15px;border:1.5px solid var(--line);border-radius:12px;font-family:inherit;font-size:.96rem;background:var(--cream);transition:.2s}
 .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--orange);background:#fff}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.contact-grid>*,.field-row>*,.io-grid>*{min-width:0}
 .form .btn{width:100%;justify-content:center;margin-top:6px}
 .form-note{text-align:center;font-size:.82rem;color:var(--ink-soft);margin-top:12px}
 
@@ -339,13 +341,21 @@ footer{background:#1a1c1e;color:#cfc9c2;padding:60px 0 26px}
   .serv .ring svg{width:34px;height:34px}
   .serv-banner{justify-content:center;text-align:center}
   .gallery-grid{grid-template-columns:repeat(2,1fr)}
-  .cond-grid,.steps-grid,.rutas-grid{grid-template-columns:1fr}
+  .cond-grid,.steps-grid,.rutas-grid,.io-grid{grid-template-columns:1fr}
   .stats-grid{grid-template-columns:repeat(2,1fr);gap:30px 10px}
   .foot-grid{grid-template-columns:1fr;gap:30px}
   .parallax{background-attachment:scroll}
   .pad{padding:64px 0}
   .imgs img{height:300px}
   .ficha{padding:28px 24px}
+}
+@media (max-width:360px){
+  .nav{gap:8px}
+  .brand{gap:8px}
+  .brand img{height:40px;width:40px}
+  .nav-right{gap:8px}
+  .btn{white-space:normal;text-align:center;justify-content:center}
+  .hero-inner .btn{padding:14px 22px}
 }
 @media(max-width:520px){
   .serv-grid{grid-template-columns:repeat(2,1fr)}
@@ -528,9 +538,9 @@ footer{background:#1a1c1e;color:#cfc9c2;padding:60px 0 26px}
     <p data-i18n="r_p">Recoges la camper y en menos de una hora estás en sitios increíbles. Algunas ideas para empezar a soñar.</p>
   </div>
   <div class="rutas-grid">
-    <div class="ruta reveal"><div class="tag" data-i18n="r1_tag">Costa vasca</div><h4 data-i18n="r1_t">Urdaibai y Gaztelugatxe</h4><p data-i18n="r1_p">Reserva de la Biosfera, playas de Laida y Laga, Bermeo, Mundaka y el icónico San Juan de Gaztelugatxe.</p><div class="km" data-i18n="r1_km">A 45 min de Bilbao</div></div>
+    <div class="ruta reveal"><div class="tag" data-i18n="r1_tag">Costa vasca</div><h4 data-i18n="r1_t">Urdaibai y Gaztelugatxe</h4><p data-i18n="r1_p">Reserva de la Biosfera, playas de Laida y Laga, Bermeo, Mundaka y el icónico San Juan de Gaztelugatxe.</p><div class="km" data-i18n="r1_km">A 45 min de Bilbao</div><a class="more" href="/rutas/urdaibai-gaztelugatxe/" data-i18n="r_more">Ver la ruta completa →</a></div>
     <div class="ruta reveal"><div class="tag" data-i18n="r2_tag">Surf y olas</div><h4>Sopela – Plentzia – Bakio</h4><p data-i18n="r2_p">Atardeceres en los acantilados, surf en Sopela y txakoli en Bakio. La escapada perfecta de fin de semana.</p><div class="km" data-i18n="r2_km">A 30 min de Bilbao</div></div>
-    <div class="ruta reveal"><div class="tag" data-i18n="r3_tag">Montaña</div><h4 data-i18n="r3_t">Gorbeia y Urkiola</h4><p data-i18n="r3_p">Parques naturales, hayedos, cuevas y las cumbres más míticas de Euskadi. Desconexión total entre montes.</p><div class="km" data-i18n="r3_km">A 40 min de Bilbao</div></div>
+    <div class="ruta reveal"><div class="tag" data-i18n="r3_tag">Montaña</div><h4 data-i18n="r3_t">Gorbeia y Urkiola</h4><p data-i18n="r3_p">Parques naturales, hayedos, cuevas y las cumbres más míticas de Euskadi. Desconexión total entre montes.</p><div class="km" data-i18n="r3_km">A 40 min de Bilbao</div><a class="more" href="/rutas/gorbeia-orozko/" data-i18n="r_more">Ver la ruta completa →</a></div>
     <div class="ruta reveal"><div class="tag" data-i18n="r4_tag">Gran ruta</div><h4 data-i18n="r4_t">Picos de Europa y Pirineos</h4><p data-i18n="r4_p">Con la camper no hay límites: Cantabria, Asturias, la Rioja Alavesa o los valles del Pirineo a tu ritmo.</p><div class="km" data-i18n="r4_km">Tú decides hasta dónde</div></div>
   </div>
 </div></section>
@@ -701,7 +711,7 @@ eu:{
   px_eb:"Esperientzia",px_t:"Gaur hemen, bihar <em>zuk nahi duzun lekuan</em>",px_b:"BiziVan-en bidaiatu nahi dut",
   g_eb:"Galeria",g_t:"Ezagutu kanperra barrutik eta kanpotik",g_p:"Gure BiziVan-en benetako argazkiak.",
   r_eb:"Inspirazioa",r_t:"Ibilbideak Bizkaitik",r_p:"Kanperra jaso eta ordu-erdian leku zoragarrietan zaude. Amesten hasteko ideia batzuk.",
-  r1_tag:"Euskal kostaldea",r1_t:"Urdaibai eta Gaztelugatxe",r1_p:"Biosfera Erreserba, Laida eta Lagako hondartzak, Bermeo, Mundaka eta San Juan de Gaztelugatxe ikonikoa.",r1_km:"Bilbotik 45 minutura",
+  r1_tag:"Euskal kostaldea",r1_t:"Urdaibai eta Gaztelugatxe",r1_p:"Biosfera Erreserba, Laida eta Lagako hondartzak, Bermeo, Mundaka eta San Juan de Gaztelugatxe ikonikoa.",r1_km:"Bilbotik 45 minutura",r_more:"Ibilbide osoa ikusi →",
   r2_tag:"Surfa eta olatuak",r2_p:"Ilunabarrak labarretan, surfa Sopelan eta txakolina Bakion. Asteburuko ihesaldi perfektua.",r2_km:"Bilbotik 30 minutura",
   r3_tag:"Mendia",r3_t:"Gorbeia eta Urkiola",r3_p:"Parke naturalak, pagadiak, kobazuloak eta Euskadiko gailur mitikoenak. Erabateko deskonexioa mendi artean.",r3_km:"Bilbotik 40 minutura",
   r4_tag:"Ibilbide handia",r4_t:"Picos de Europa eta Pirinioak",r4_p:"Kanperrarekin ez dago mugarik: Kantabria, Asturias, Arabako Errioxa edo Pirinioetako haranak zure erritmora.",r4_km:"Zuk erabakitzen duzu noraino",
@@ -769,7 +779,7 @@ en:{
   px_eb:"The experience",px_t:"Here today, tomorrow <em>wherever you want</em>",px_b:"I want to travel with BiziVan",
   g_eb:"Gallery",g_t:"See the camper inside and out",g_p:"Real photos of our BiziVan.",
   r_eb:"Inspiration",r_t:"Routes from Bizkaia",r_p:"Pick up the camper and within an hour you are somewhere amazing. A few ideas to start dreaming.",
-  r1_tag:"Basque coast",r1_t:"Urdaibai & Gaztelugatxe",r1_p:"Biosphere Reserve, Laida and Laga beaches, Bermeo, Mundaka and the iconic San Juan de Gaztelugatxe.",r1_km:"45 min from Bilbao",
+  r1_tag:"Basque coast",r1_t:"Urdaibai & Gaztelugatxe",r1_p:"Biosphere Reserve, Laida and Laga beaches, Bermeo, Mundaka and the iconic San Juan de Gaztelugatxe.",r1_km:"45 min from Bilbao",r_more:"See the full route →",
   r2_tag:"Surf and waves",r2_p:"Cliff-top sunsets, surfing in Sopela and txakoli wine in Bakio. The perfect weekend escape.",r2_km:"30 min from Bilbao",
   r3_tag:"Mountains",r3_t:"Gorbeia & Urkiola",r3_p:"Natural parks, beech forests, caves and the most legendary peaks in the Basque Country. Total disconnection.",r3_km:"40 min from Bilbao",
   r4_tag:"Road trip",r4_t:"Picos de Europa & Pyrenees",r4_p:"With the camper there are no limits: Cantabria, Asturias, Rioja Alavesa or the Pyrenean valleys at your own pace.",r4_km:"You decide how far",
@@ -910,5 +920,6 @@ document.getElementById('resForm').addEventListener('submit',function(e){
   window.open(`https://wa.me/${wa}?text=${txt}`,'_blank');
 });
 </script>
+<script src="/stats.js?v=1" defer></script>
 </body>
 </html>
