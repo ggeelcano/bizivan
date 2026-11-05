@@ -38,27 +38,6 @@ a{color:inherit;text-decoration:none}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
 .eyebrow{font-family:'Outfit';font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:.76rem;color:var(--orange)}
 
-/* ===== Puerta de acceso ===== */
-body.locked{overflow:hidden}
-body.locked #contenido{display:none}
-#gate{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;background:linear-gradient(160deg,#2b1607 0%,#5a2c0b 45%,#b4530f 100%);padding:24px}
-body.locked #gate{display:flex}
-.gate-card{width:100%;max-width:400px;background:var(--cream);border-radius:24px;padding:38px 30px;text-align:center;box-shadow:0 30px 80px -20px rgba(0,0,0,.55)}
-.gate-card img{width:84px;height:84px;border-radius:50%;margin:0 auto 14px;object-fit:contain}
-.gate-card h1{font-size:1.55rem;font-weight:800}
-.gate-card .sub{color:var(--ink-soft);font-size:.95rem;margin:8px 0 22px}
-.gate-form{display:flex;flex-direction:column;gap:12px}
-.gate-form input{font-family:'Outfit';font-weight:700;font-size:1.15rem;text-align:center;letter-spacing:.14em;text-transform:uppercase;padding:14px 16px;border-radius:14px;border:2px solid var(--line);background:#fff;color:var(--ink);outline:none;transition:.2s}
-.gate-form input:focus{border-color:var(--orange)}
-.gate-form button{font-family:'Outfit';font-weight:700;font-size:1.02rem;padding:14px;border-radius:60px;border:none;cursor:pointer;background:var(--orange);color:#fff;box-shadow:0 12px 28px -10px rgba(216,106,26,.7);transition:.25s}
-.gate-form button:hover{background:var(--orange-d)}
-.gate-err{display:none;color:#c0392b;font-weight:600;font-size:.9rem;margin-top:12px}
-.gate-err.show{display:block}
-.gate-help{margin-top:20px;font-size:.85rem;color:var(--ink-soft)}
-.gate-help a{color:var(--orange);font-weight:600}
-@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
-.gate-card.shake{animation:shake .4s}
-
 /* ===== Cabecera ===== */
 .mheader{position:sticky;top:0;z-index:50;background:rgba(251,241,230,.94);backdrop-filter:blur(12px);box-shadow:0 2px 20px rgba(0,0,0,.06)}
 .mheader .bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0}
@@ -100,7 +79,7 @@ section.blk{padding:44px 0 6px}
 .check-count.done{color:var(--green)}
 .check-reset{font-family:'Outfit';font-weight:600;font-size:.8rem;color:var(--ink-soft);background:none;border:1.5px solid var(--line);border-radius:60px;padding:6px 14px;cursor:pointer;transition:.2s}
 .check-reset:hover{border-color:var(--orange);color:var(--orange)}
-.check-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:6px 22px;list-style:none}
+.check-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(290px,100%),1fr));gap:6px 22px;list-style:none}
 .check-list label{display:flex;align-items:flex-start;gap:11px;padding:8px 4px;border-radius:10px;cursor:pointer;transition:.15s;font-size:.97rem}
 .check-list label:hover{background:var(--sand)}
 .check-list input{appearance:none;flex:none;width:22px;height:22px;margin-top:2px;border:2px solid #cbb9a4;border-radius:7px;background:#fff;cursor:pointer;position:relative;transition:.15s}
@@ -155,22 +134,7 @@ footer{padding:34px 0 42px;text-align:center;color:var(--ink-soft);font-size:.85
 footer a{color:var(--orange);font-weight:600}
 </style>
 </head>
-<body class="locked">
-
-<!-- ======== PUERTA DE ACCESO ======== -->
-<div id="gate">
-  <div class="gate-card" id="gateCard">
-    <img src="/img/logo.png" alt="BiziVan">
-    <h1>Manual de a bordo</h1>
-    <p class="sub">Acceso exclusivo para clientes de BiziVan. Introduce el código que te hemos facilitado.</p>
-    <form class="gate-form" id="gateForm" autocomplete="off">
-      <input type="text" id="gateCode" placeholder="CÓDIGO" autocapitalize="characters" spellcheck="false" aria-label="Código de acceso">
-      <button type="submit">Entrar</button>
-    </form>
-    <p class="gate-err" id="gateErr">Código incorrecto. Vuelve a intentarlo.</p>
-    <p class="gate-help">¿No tienes el código? Escanea el QR de la camper o <a href="https://wa.me/34679736796?text=Hola%2C%20necesito%20el%20c%C3%B3digo%20del%20manual%20de%20BiziVan" target="_blank" rel="noopener">pídenoslo por WhatsApp</a>.</p>
-  </div>
-</div>
+<body>
 
 <!-- ======== CONTENIDO ======== -->
 <div id="contenido">
@@ -397,51 +361,6 @@ footer a{color:var(--orange);font-weight:600}
 <script>
 (function(){
   'use strict';
-  /* ============ Puerta de acceso ============ */
-  var HASH='c76ba719f6dcfe221746a6694139f8b496df09aa7b9ee4caeec722e12dfa7d8d';
-  var STORE='bizivan-manual-ok';
-
-  function sha256(str){
-    return crypto.subtle.digest('SHA-256',new TextEncoder().encode(str)).then(function(buf){
-      return Array.prototype.map.call(new Uint8Array(buf),function(b){return b.toString(16).padStart(2,'0');}).join('');
-    });
-  }
-  function norm(s){return (s||'').trim().toUpperCase();}
-  function unlock(){
-    document.body.classList.remove('locked');
-    try{localStorage.setItem(STORE,HASH);}catch(e){}
-  }
-  function tryCode(code,onFail){
-    if(!window.crypto||!crypto.subtle){ /* entorno sin WebCrypto: comparación imposible, no desbloquear */ if(onFail)onFail(); return; }
-    sha256(norm(code)).then(function(h){
-      if(h===HASH){unlock();}
-      else if(onFail){onFail();}
-    });
-  }
-
-  /* Ya desbloqueado antes en este dispositivo */
-  try{ if(localStorage.getItem(STORE)===HASH){ document.body.classList.remove('locked'); } }catch(e){}
-
-  /* Clave embebida en el QR: /manual/?k=CODIGO */
-  var params=new URLSearchParams(location.search);
-  if(document.body.classList.contains('locked') && params.get('k')){
-    tryCode(params.get('k'));
-  }
-  /* Limpiar la clave de la barra de direcciones */
-  if(params.get('k')){ history.replaceState(null,'',location.pathname); }
-
-  var form=document.getElementById('gateForm');
-  form.addEventListener('submit',function(e){
-    e.preventDefault();
-    var inp=document.getElementById('gateCode');
-    tryCode(inp.value,function(){
-      var card=document.getElementById('gateCard');
-      document.getElementById('gateErr').classList.add('show');
-      card.classList.remove('shake'); void card.offsetWidth; card.classList.add('shake');
-      inp.select();
-    });
-  });
-
   /* ============ Checklists con memoria ============ */
   document.querySelectorAll('.check-list').forEach(function(list){
     var key='bizivan-check-'+list.dataset.list;
